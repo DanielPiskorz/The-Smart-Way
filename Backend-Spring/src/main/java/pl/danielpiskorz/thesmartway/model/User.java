@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -34,17 +35,21 @@ public class User{
     private Long id;
 
     @NotBlank
+    @Size(min=3, max = 50)
     private String name;
 
     @NotBlank
+    @Size(min=3, max = 50)
     private String username;
 
     @NaturalId
     @NotBlank
     @Email
+    @Size(max = 50)
     private String email;
 
     @NotBlank
+    @Size(min=6, max = 100)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
