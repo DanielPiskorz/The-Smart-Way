@@ -1,10 +1,35 @@
 package pl.danielpiskorz.thesmartway.model;
 
-public class Task {
-	private long id;
-	private String name;
-	private String[] todos;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OrderColumn;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "tasks")
+public class Task {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@Column
+	private String name;
+	@ElementCollection
+	@OrderColumn
+	private String[] todos;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="project_id")
+	private Project project;
+	
+	public Task() {}
+	
 	public Task(long id, String name, String[] todos) {
 		super();
 		this.id = id;
