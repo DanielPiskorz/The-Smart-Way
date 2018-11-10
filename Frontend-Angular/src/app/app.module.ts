@@ -7,16 +7,22 @@ import { AppComponent } from './app.component';
 
 import { httpInterceptorProviders } from '../app/services/auth-interceptor.service';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [httpInterceptorProviders],
     bootstrap: [AppComponent]
