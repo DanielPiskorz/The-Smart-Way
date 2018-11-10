@@ -1,0 +1,7 @@
+<h1>Welcome!</h1>>
+
+<h3 *ngIf="info.token; else loggedOut">Logged as {{info.username}}</h3>
+
+<ng-template #loggedOut>
+  Please login.
+</ng-template>
