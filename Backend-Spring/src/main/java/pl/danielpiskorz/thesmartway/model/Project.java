@@ -2,6 +2,7 @@ package pl.danielpiskorz.thesmartway.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "projects")
@@ -23,13 +27,23 @@ public class Project {
 	@Column
 	private String name;
 	
-	@OneToMany(mappedBy = "project")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
 	private List<Task> tasks;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn()
+	@JoinColumn
+	@JsonIgnore
 	private User owner;
 	
+	@PreRemove
+	private void removeParentProjectFromOwnerAndTaskList() {
+		owner.getProjects().remove(this);
+		for (Task t : tasks) {
+	        t.setProject(null);
+	    }
+	    
+	}
+
 	public Project() {}
 
 	public Project(long id, String name, List<Task> tasks) {
@@ -62,5 +76,15 @@ public class Project {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+	
+	
 
 }

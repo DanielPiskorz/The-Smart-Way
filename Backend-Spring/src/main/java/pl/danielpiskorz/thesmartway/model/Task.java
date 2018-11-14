@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -26,15 +28,17 @@ public class Task {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="project_id")
+	@JsonIgnore
 	private Project project;
 	
 	public Task() {}
 	
-	public Task(long id, String name, String[] todos) {
+	public Task(long id, String name, String[] todos, Project project) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.todos = todos;
+		this.project = project;
 	}
 
 	public long getId() {
@@ -60,5 +64,15 @@ public class Task {
 	public void setTodos(String[] todos) {
 		this.todos = todos;
 	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+	
+	
 
 }
