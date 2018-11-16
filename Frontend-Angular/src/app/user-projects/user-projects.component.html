@@ -1,0 +1,12 @@
+<button (click)="getProjects()" class="btn btn-info">GET PROJECTS</button>
+<div *ngFor="let project of projects">
+  <h1>Project: {{project.name}}</h1>
+  <ul>
+    <li *ngFor="let task of project.tasks">
+      Task {{task.name}}:
+      <p *ngFor="let todo of task.todos">
+        - {{todo}}
+      </p>
+    </li>
+  </ul>
+</div>

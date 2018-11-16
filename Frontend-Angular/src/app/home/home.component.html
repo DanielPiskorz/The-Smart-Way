@@ -1,5 +1,6 @@
 <h1>Welcome!</h1>>
 
+<button *ngIf="info.token" class="btn btn-secondary" (click)="logout()">Logout</button>
 <h3 *ngIf="info.token; else loggedOut">Logged as {{info.username}}</h3>
 
 <ng-template #loggedOut>

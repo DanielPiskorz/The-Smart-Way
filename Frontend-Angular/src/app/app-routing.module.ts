@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
+import { UserProjectsComponent } from './user-projects/user-projects.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
       path: 'signup',
       component: RegisterComponent
+  },
+  {
+    path: 'projects',
+    component: UserProjectsComponent
   },
   {
       path: '',
