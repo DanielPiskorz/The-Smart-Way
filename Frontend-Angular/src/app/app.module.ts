@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UserProjectsComponent } from './user-projects/user-projects.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserProjectsComponent } from './user-projects/user-projects.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule
   ],
   providers: [httpInterceptorProviders],
     bootstrap: [AppComponent]
