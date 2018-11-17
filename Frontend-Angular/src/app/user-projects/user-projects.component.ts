@@ -2,11 +2,23 @@ import { Component, OnInit, Testability } from '@angular/core';
 import { ProjectsHttpService } from '../services/projects-http.service';
 import { Project, Task } from '../models/project';
 import { faPlus, faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-user-projects',
   templateUrl: './user-projects.component.html',
-  styleUrls: ['./user-projects.component.css']
+  styleUrls: ['./user-projects.component.css'],
+  animations: [
+    trigger('projectOptions', [
+      state('void', style({
+        left: 0,
+        opacity: 0
+      })),
+      transition('void <=> *', [
+        animate(100)
+      ])
+    ])
+  ]
 })
 export class UserProjectsComponent implements OnInit {
 

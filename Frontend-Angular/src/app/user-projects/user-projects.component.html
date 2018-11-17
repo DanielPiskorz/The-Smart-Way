@@ -5,7 +5,7 @@
 
           <div class="card-header" (mouseenter)="projectHeaderMouseAction(project.id, 'enter')"
            (mouseleave)="projectHeaderMouseAction(project.id, 'leave')">
-              <div *ngIf="mouseOnProjectId === project.id" class="project-options">
+              <div *ngIf="mouseOnProjectId === project.id" class="project-options" @projectOptions >
                   <fa-icon [icon]="faTimes" class="delete-button"></fa-icon>
                   <fa-icon [icon]="faPencilAlt" class="edit-button"></fa-icon>
               </div>
