@@ -1,7 +1,7 @@
 import { Component, OnInit, Testability } from '@angular/core';
 import { ProjectsHttpService } from '../services/projects-http.service';
 import { Project, Task } from '../models/project';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-projects',
@@ -11,6 +11,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 export class UserProjectsComponent implements OnInit {
 
   faPlus = faPlus;
+  faTimes = faTimes;
+  faPencilAlt = faPencilAlt;
 
   constructor(private projectsHttpService: ProjectsHttpService) { }
 
@@ -18,14 +20,33 @@ export class UserProjectsComponent implements OnInit {
   currentTask: Task;
 
   newProjectName: string;
+  mouseOnProjectId: number;
 
   ngOnInit() {
     this.getProjects();
   }
 
+  // LOCAL start
+
   selectTask(selectedTask: Task) {
     this.currentTask = selectedTask;
   }
+
+  projectHeaderMouseAction(projectId: number, action: String) {
+    switch (action) {
+      case 'enter':
+        this.mouseOnProjectId = projectId;
+        break;
+      case 'leave':
+        this.mouseOnProjectId = -1;
+        break;
+    }
+
+  }
+
+
+  // LOCAL end
+  // HTTP SERVICE start
 
   getProjects() {
     this.projectsHttpService.getProjects().subscribe(data => {
@@ -46,5 +67,5 @@ export class UserProjectsComponent implements OnInit {
     this.projectsHttpService.deleteProject(project);
   }
 
-
+  // HTTP SERVICE end
 }

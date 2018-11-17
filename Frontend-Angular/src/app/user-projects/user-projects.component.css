@@ -1,0 +1,15 @@
+.project-options{
+  position: absolute;
+  left: -40px;
+  letter-spacing: 10%;
+}
+
+
+.project-options .delete-button{
+  color: rgb(175, 33, 33);
+}
+
+.project-options .edit-button{
+  color: rgb(58, 96, 219);
+  margin: 10px;
+}

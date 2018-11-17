@@ -1,8 +1,16 @@
 <div class="row">
     <div class="col">
         <h3 class="m-2">Projects</h3>
-        <div class="card mb-3" *ngFor="let project of projects">
-          <div class="card-header">{{project.name}}</div>
+        <div class="card mb-3" *ngFor="let project of projects" >
+
+          <div class="card-header" (mouseenter)="projectHeaderMouseAction(project.id, 'enter')"
+           (mouseleave)="projectHeaderMouseAction(project.id, 'leave')">
+              <div *ngIf="mouseOnProjectId === project.id" class="project-options">
+                  <fa-icon [icon]="faTimes" class="delete-button"></fa-icon>
+                  <fa-icon [icon]="faPencilAlt" class="edit-button"></fa-icon>
+              </div>
+            {{project.name}}
+          </div>
 
               <ul class="list-group list-group-flush">
                   <li *ngFor="let task of project.tasks" class="list-group-item"
