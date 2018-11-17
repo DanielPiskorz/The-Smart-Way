@@ -10,6 +10,16 @@
               </ul>
 
         </div>
+        <div class="card">
+          <div class="card-header p-2">
+            <div class="input-group">
+                <input type="text" placeHolder="new project name" class="form-control" [(ngModel)]="newProjectName">
+                <span class="btn btn-success ml-2" (click)="addProject()">
+                  <fa-icon [icon]="faPlus"></fa-icon>
+                </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="col">

@@ -21,7 +21,9 @@ public class ProjectServiceImpl implements ProjectService {
 
 	
 	@Override
-	public Project createProject(String username, Project project) {
+	public Project createProject(String username, String name) {
+		Project project = new Project();
+		project.setName(name);
 		project.setOwner(userRepository.findByUsername(username).orElseThrow(
 				() -> new UsernameNotFoundException("Username not found")));
 		project.getTasks().stream().forEach(p -> p.setProject(project));

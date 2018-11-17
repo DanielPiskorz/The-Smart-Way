@@ -2,10 +2,12 @@ package pl.danielpiskorz.thesmartway.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.danielpiskorz.thesmartway.model.Project;
 import pl.danielpiskorz.thesmartway.service.ProjectService;
 
+@CrossOrigin(origins = "*")
 @PreAuthorize("hasRole('USER')")
 @RestController("/api/user/projects")
 public class ProjectController {
@@ -30,8 +33,8 @@ public class ProjectController {
 	
 	@PostMapping
 	public ResponseEntity<Project> createNewProject(Principal principal,
-			@RequestBody Project project){
-		return ResponseEntity.ok(projectService.createProject(principal.getName(), project));
+			@RequestBody Map<String, String> json){
+		return ResponseEntity.ok(projectService.createProject(principal.getName(), json.get("name")));
 	}
 	
 	@PutMapping

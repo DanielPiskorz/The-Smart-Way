@@ -1,5 +1,6 @@
 package pl.danielpiskorz.thesmartway.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -28,7 +29,7 @@ public class Project {
 	private String name;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "project")
-	private List<Task> tasks;
+	private List<Task> tasks = new ArrayList<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
@@ -44,7 +45,7 @@ public class Project {
 	    
 	}
 
-	public Project() {}
+	public Project() { }
 
 	public Project(long id, String name, List<Task> tasks) {
 		super();
