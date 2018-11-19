@@ -2,6 +2,8 @@ package pl.danielpiskorz.thesmartway.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Autowired
 	UserRepository userRepository;
 
+	private static final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
 	
 	@Override
 	public Project createProject(String username, String name) {
@@ -26,12 +29,13 @@ public class ProjectServiceImpl implements ProjectService {
 		project.setName(name);
 		project.setOwner(userRepository.findByUsername(username).orElseThrow(
 				() -> new UsernameNotFoundException("Username not found")));
-		project.getTasks().stream().forEach(p -> p.setProject(project));
+		assignTasks(project);
 		return projectRepository.save(project);
 	}
 
 	@Override
 	public Project updateProject(String username, Project project) {
+		assignTasks(project);
 		return projectRepository.save(project);
 	}
 
@@ -41,10 +45,15 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public void deleteProject(String username, Project project) {
+	public void deleteProject(String username, long projectId) {
 		if(userRepository.findByUsername(username).get().getProjects().stream()
-				.anyMatch(p -> p.getName().equals(project.getName()))){
-			projectRepository.deleteById(project.getId());
+				.anyMatch(p -> p.getId() == projectId )){
+
+			projectRepository.deleteById(projectId);
 		}
+	}
+	
+	private void assignTasks(Project project) {
+		project.getTasks().stream().forEach(p -> p.setProject(project));
 	}
 }

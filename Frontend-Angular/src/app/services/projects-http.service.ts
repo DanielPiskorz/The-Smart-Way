@@ -25,8 +25,7 @@ export class ProjectsHttpService {
     return this.http.put<Project>(this.PROJECT_URL, project);
   }
 
-  deleteProject(project: Project): void {
-    this.http.delete(this.PROJECT_URL);
+  deleteProject(project) {
+    return this.http.delete(this.PROJECT_URL + '/' + project.id);
   }
-
 }

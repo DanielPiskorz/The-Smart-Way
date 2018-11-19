@@ -76,7 +76,9 @@ export class UserProjectsComponent implements OnInit {
   }
 
   deleteProject(project: Project) {
-    this.projectsHttpService.deleteProject(project);
+    this.projectsHttpService.deleteProject(project).subscribe(
+      () => this.projects.splice(this.projects.indexOf(project), 1)
+    );
   }
 
   // HTTP SERVICE end

@@ -9,6 +9,6 @@ public interface ProjectService {
 	Project createProject(String username, String name);
 	Project updateProject(String username, Project project);
 	List<Project> getAllProjects(String username);
-	void deleteProject(String username, Project project);
+	void deleteProject(String username, long projectId);
 	
 }
