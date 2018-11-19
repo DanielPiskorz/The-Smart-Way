@@ -1,7 +1,7 @@
 import { Component, OnInit, Testability } from '@angular/core';
 import { ProjectsHttpService } from '../services/projects-http.service';
 import { Project, Task } from '../models/project';
-import { faPlus, faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPencilAlt, faTimes, faSave } from '@fortawesome/free-solid-svg-icons';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
@@ -12,7 +12,9 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
     trigger('projectOptions', [
       state('void', style({
         left: 0,
-        opacity: 0
+        opacity: 0,
+        fontSize: 1,
+        top: 17.5
       })),
       transition('void <=> *', [
         animate(100)
@@ -25,6 +27,7 @@ export class UserProjectsComponent implements OnInit {
   faPlus = faPlus;
   faTimes = faTimes;
   faPencilAlt = faPencilAlt;
+  faSave = faSave;
 
   constructor(private projectsHttpService: ProjectsHttpService) { }
 
@@ -33,6 +36,7 @@ export class UserProjectsComponent implements OnInit {
 
   newProjectName: string;
   mouseOnProjectId: number;
+  editingProject = new Project();
 
   ngOnInit() {
     this.getProjects();
@@ -56,6 +60,12 @@ export class UserProjectsComponent implements OnInit {
 
   }
 
+  editProjectHeader(project: Project) {
+    this.editingProject = project;
+  }
+
+
+
 
   // LOCAL end
   // HTTP SERVICE start
@@ -67,11 +77,21 @@ export class UserProjectsComponent implements OnInit {
   }
 
   addProject() {
-    const newProject: Project = new Project();
-    newProject.name = this.newProjectName;
-    this.projectsHttpService.createProject(newProject).subscribe(data => {
-      this.projects.push(data);
-      this.newProjectName = '';
+    if (this.newProjectName.length > 0) {
+      const newProject: Project = new Project();
+      newProject.name = this.newProjectName;
+      this.projectsHttpService.createProject(newProject).subscribe(data => {
+        this.projects.push(data);
+        this.newProjectName = '';
+      });
+    }
+
+  }
+
+  saveProjectHeader(project: Project) {
+    this.projectsHttpService.updateProject(project).subscribe(data => {
+      this.projects[this.projects.indexOf(project)] = data;
+      this.editingProject = new Project();
     });
   }
 

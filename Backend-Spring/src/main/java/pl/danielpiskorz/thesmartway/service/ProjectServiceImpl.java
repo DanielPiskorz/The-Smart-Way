@@ -27,8 +27,7 @@ public class ProjectServiceImpl implements ProjectService {
 	public Project createProject(String username, String name) {
 		Project project = new Project();
 		project.setName(name);
-		project.setOwner(userRepository.findByUsername(username).orElseThrow(
-				() -> new UsernameNotFoundException("Username not found")));
+		setOwnerByUsername(project, username);
 		assignTasks(project);
 		return projectRepository.save(project);
 	}
@@ -36,6 +35,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public Project updateProject(String username, Project project) {
 		assignTasks(project);
+		setOwnerByUsername(project, username);
 		return projectRepository.save(project);
 	}
 
@@ -55,5 +55,10 @@ public class ProjectServiceImpl implements ProjectService {
 	
 	private void assignTasks(Project project) {
 		project.getTasks().stream().forEach(p -> p.setProject(project));
+	}
+	
+	private void setOwnerByUsername(Project project, String username) {
+		project.setOwner(userRepository.findByUsername(username).orElseThrow(
+				() -> new UsernameNotFoundException("Username not found")));
 	}
 }

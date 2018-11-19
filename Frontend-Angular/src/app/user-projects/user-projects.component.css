@@ -1,15 +1,27 @@
 .project-options{
   position: absolute;
-  left: -50px;
+  left: -70px;
   letter-spacing: 10%;
+  font-size: 1.8rem;
+  top: 2px;
+
 }
 
 
 .project-options .delete-button{
+  color: rgb(221, 83, 83);
+}
+
+.project-options .delete-button:hover{
   color: rgb(175, 33, 33);
 }
 
 .project-options .edit-button{
-  color: rgb(58, 96, 219);
+  color: rgb(97, 128, 228);
   margin: 10px;
 }
+.project-options .edit-button:hover{
+  color: rgb(47, 85, 209);
+  margin: 10px;
+}
+

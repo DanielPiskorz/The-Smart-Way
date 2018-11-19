@@ -3,11 +3,11 @@
         <h3 class="m-2">Projects</h3>
         <div class="card mb-3" *ngFor="let project of projects" >
 
-          <div class="card-header" (mouseenter)="projectHeaderMouseAction(project.id, 'enter')"
+          <div *ngIf="project !== editingProject; else editingProjectHeader" class="card-header" (mouseenter)="projectHeaderMouseAction(project.id, 'enter')"
            (mouseleave)="projectHeaderMouseAction(project.id, 'leave')">
               <div *ngIf="mouseOnProjectId === project.id" class="project-options" @projectOptions >
                   <fa-icon [icon]="faTimes" (click)="deleteProject(project)" class="delete-button"></fa-icon>
-                  <fa-icon [icon]="faPencilAlt" class="edit-button"></fa-icon>
+                  <fa-icon [icon]="faPencilAlt" (click)="editProjectHeader(project)" class="edit-button"></fa-icon>
               </div>
             {{project.name}}
           </div>
@@ -21,7 +21,7 @@
         <div class="card">
           <div class="card-header p-2">
             <div class="input-group">
-                <input type="text" placeHolder="new project name" class="form-control" [(ngModel)]="newProjectName">
+                <input type="text" placeHolder="new project name" class="form-control" [(ngModel)]="newProjectName" (keyup.enter)="addProject()">
                 <span class="btn btn-success ml-2" (click)="addProject()">
                   <fa-icon [icon]="faPlus"></fa-icon>
                 </span>
@@ -44,4 +44,15 @@
 
 <ng-template #selectTaskInfo>
   <span class="font-italic">Select a task, please.</span>
+</ng-template>
+
+<ng-template #editingProjectHeader>
+  <div class="card-header p-2">
+    <div class="input-group">
+      <input type="text" class="form-control" [(ngModel)]="editingProject.name" (keyup.enter)="saveProjectHeader(editingProject)">
+        <span class="btn btn-success ml-2" (click)="saveProjectHeader(editingProject)">
+          <fa-icon [icon]="faSave"></fa-icon>
+          </span>
+        </div>
+      </div>
 </ng-template>
