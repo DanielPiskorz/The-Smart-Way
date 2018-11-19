@@ -1,7 +1,7 @@
 import { Component, OnInit, Testability } from '@angular/core';
 import { ProjectsHttpService } from '../services/projects-http.service';
 import { Project, Task } from '../models/project';
-import { faPlus, faPencilAlt, faTimes, faSave } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPencilAlt, faTimes, faSave, faTasks } from '@fortawesome/free-solid-svg-icons';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
@@ -15,6 +15,17 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         opacity: 0,
         fontSize: 1,
         top: 17.5
+      })),
+      transition('void <=> *', [
+        animate(100)
+      ])
+    ]),
+    trigger('newTaskButton', [
+      state('void', style({
+        opacity: 0,
+        fontSize: 0,
+        bottom: -18,
+        left: 10
       })),
       transition('void <=> *', [
         animate(100)
@@ -36,7 +47,10 @@ export class UserProjectsComponent implements OnInit {
 
   newProjectName: string;
   mouseOnProjectId: number;
+  mouseOnProjectHeaderId: number;
   editingProject = new Project();
+  editingTask = new Task();
+  showNewTaskButton = true;
 
   ngOnInit() {
     this.getProjects();
@@ -48,13 +62,24 @@ export class UserProjectsComponent implements OnInit {
     this.currentTask = selectedTask;
   }
 
-  projectHeaderMouseAction(projectId: number, action: String) {
+  projectMouseAction(projectId, action: string) {
     switch (action) {
       case 'enter':
         this.mouseOnProjectId = projectId;
         break;
       case 'leave':
         this.mouseOnProjectId = -1;
+        break;
+    }
+  }
+
+  projectHeaderMouseAction(projectId: number, action: string) {
+    switch (action) {
+      case 'enter':
+        this.mouseOnProjectHeaderId = projectId;
+        break;
+      case 'leave':
+        this.mouseOnProjectHeaderId = -1;
         break;
     }
 
@@ -64,8 +89,17 @@ export class UserProjectsComponent implements OnInit {
     this.editingProject = project;
   }
 
+  showNewTaskInput(project: Project) {
+    this.showNewTaskButton = false;
+    const newTask = new Task();
+    project.tasks.push(newTask);
+    this.editingTask = newTask;
+  }
 
-
+  editTaskName(task: Task) {
+    this.showNewTaskButton = false;
+    this.editingTask = task;
+  }
 
   // LOCAL end
   // HTTP SERVICE start
@@ -93,6 +127,27 @@ export class UserProjectsComponent implements OnInit {
       this.projects[this.projects.indexOf(project)] = data;
       this.editingProject = new Project();
     });
+  }
+
+  saveTaskName() {
+    if (this.editingTask.name.length > 0) {
+      let project: Project;
+
+      this.projects.filter(p => {
+        p.tasks.filter(t => {
+          if (t === this.editingTask) {
+            project = p;
+          }
+        });
+      });
+
+      this.projectsHttpService.updateProject(project).subscribe(data => {
+        this.projects[this.projects.indexOf(project)] = data;
+        this.editingTask = new Task();
+      });
+
+      this.showNewTaskButton = true;
+    }
   }
 
   deleteProject(project: Project) {

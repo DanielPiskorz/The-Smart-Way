@@ -1,5 +1,8 @@
 package pl.danielpiskorz.thesmartway.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -24,7 +27,7 @@ public class Task {
 	private String name;
 	@ElementCollection
 	@OrderColumn
-	private String[] todos;
+	private List<String> todos = new ArrayList<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="project_id")
@@ -33,7 +36,7 @@ public class Task {
 	
 	public Task() {}
 	
-	public Task(long id, String name, String[] todos, Project project) {
+	public Task(long id, String name, List<String> todos, Project project) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -57,11 +60,11 @@ public class Task {
 		this.name = name;
 	}
 
-	public String[] getTodos() {
+	public List<String> getTodos() {
 		return todos;
 	}
 
-	public void setTodos(String[] todos) {
+	public void setTodos(List<String> todos) {
 		this.todos = todos;
 	}
 

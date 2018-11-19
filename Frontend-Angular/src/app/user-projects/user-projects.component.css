@@ -25,3 +25,10 @@
   margin: 10px;
 }
 
+.new-task-button {
+  position: absolute;
+  bottom: -36px;
+  z-index: 2;
+  opacity: 50;
+
+}
