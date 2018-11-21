@@ -45,9 +45,12 @@
           <div *ngIf="currentTask; else selectTaskInfo" class="card">
               <ul class="list-group list-group-flush">
                   <li *ngFor="let todo of currentTask.todos" class="list-group-item">{{todo}}</li>
+                  <li>
+                    <input class="list-group-item" type="text" class="form-control" [(ngModel)]="newTodoName" (keyup.enter)="addNewTodo(newTodoName)">
+                  </li>
               </ul>
           </div>
-
+          <span *ngIf="!todosSaved" class="btn btn-info col-3 mt-2" (click)="saveTodos()" >save todos</span>
       </div>
 </div>
 

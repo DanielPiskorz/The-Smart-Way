@@ -51,6 +51,11 @@ export class UserProjectsComponent implements OnInit {
   editingProject = new Project();
   editingTask = new Task();
   showNewTaskButton = true;
+  newTodoName = '';
+
+  todosSaved = true;
+  savingTodos = false;
+
 
   ngOnInit() {
     this.getProjects();
@@ -99,6 +104,14 @@ export class UserProjectsComponent implements OnInit {
   editTaskName(task: Task) {
     this.showNewTaskButton = false;
     this.editingTask = task;
+  }
+
+  addNewTodo(name) {
+    if (name.length > 0) {
+      this.todosSaved = false;
+      this.currentTask.todos.push(name);
+      this.newTodoName = '';
+    }
   }
 
   // LOCAL end
@@ -154,6 +167,25 @@ export class UserProjectsComponent implements OnInit {
     this.projectsHttpService.deleteProject(project).subscribe(
       () => this.projects.splice(this.projects.indexOf(project), 1)
     );
+  }
+
+  saveTodos() {
+    this.savingTodos = true;
+    let project: Project;
+    this.projects.filter(p => {
+      p.tasks.filter( t => {
+        if (t === this.currentTask) {
+          project = p;
+        }
+       });
+    });
+
+    this.projectsHttpService.updateProject(project).subscribe(data => {
+      project = data;
+      this.todosSaved = true;
+      this.savingTodos = false;
+
+    });
   }
 
   // HTTP SERVICE end
