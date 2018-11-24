@@ -1,17 +1,13 @@
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
+<nav class="navbar navbar-dark main-navbar">
+  <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">The Smart Way</a>
+      <a class="navbar-brand text-light" href="#">The Smart Way</a>
     </div>
-    <ul class="nav navbar-nav" routerLinkActive="active">
-      <li class="nav-item"><a class="nav-link" routerLink="home">Home</a></li>
-      <li *ngIf="!authority" class="nav-item">
-        <a class="nav-link" routerLink="login">Login</a>
+
+
+      <li *ngIf="authority" class="nav-item text-white">
+       {{tokenStorage.getUsername()}} &nbsp; | &nbsp;<a class="btn btn-outline-primary" (click)="logout()">Logout</a>
       </li>
-      <li *ngIf="authority" class="nav-item">
-          <a class="nav-link" routerLink="projects">Projects</a>
-        </li>
-    </ul>
   </div>
 </nav>
 <div class="container">

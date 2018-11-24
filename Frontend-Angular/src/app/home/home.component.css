@@ -1,0 +1,12 @@
+#login_card{
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.main-text{
+  text-align: center;
+  color: rgba(238, 238, 238, 0.9);
+}
+
+.main-row{
+  min-height: 75vh;
+}

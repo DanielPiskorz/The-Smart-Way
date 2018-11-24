@@ -1,9 +1,5 @@
-<div *ngIf="isLoggedIn; else loggedOut">
-  Logged in as {{roles}}.
-</div>
 
-<ng-template #loggedOut>
-  <div class="row col-sm-6" style="max-width:350px;">
+
     <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
       <div class="form-group">
         <label for="username">Username</label>
@@ -23,14 +19,16 @@
         </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary">Login</button>
+        <button class="btn btn-outline-light">Login</button>
+
         <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger">
           Login failed: {{errorMessage}}
         </div>
+
       </div>
     </form>
-    <hr />
+
+  <hr class="col-12">
     <p>Don't have an account?</p>
-    <a href="signup" class="btn btn-success">Sign Up</a>
-  </div>
-</ng-template>
+    <a href="signup" class="btn btn-outline-light">Sign Up</a>
+
