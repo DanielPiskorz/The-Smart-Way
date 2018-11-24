@@ -32,3 +32,17 @@
   opacity: 50;
 
 }
+
+
+/* CURRENT TASK TODO LIST CLASSES */
+.td-done {
+  color: green;
+}
+
+.td-doing {
+  color: blue;
+}
+
+.td-todo {
+  color: black;
+}

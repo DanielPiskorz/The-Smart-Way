@@ -15,5 +15,4 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	int countById(long id);
 	<S extends Project> S save(S project);
 	void deleteById(long id);
-	
 }

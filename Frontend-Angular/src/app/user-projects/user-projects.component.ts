@@ -114,6 +114,13 @@ export class UserProjectsComponent implements OnInit {
     }
   }
 
+  done() {
+    this.projectsHttpService.todoDone(this.currentTask).subscribe(data => {
+      console.log(data);
+      this.currentTask = data;
+    });
+  }
+
   // LOCAL end
   // HTTP SERVICE start
 
@@ -170,18 +177,8 @@ export class UserProjectsComponent implements OnInit {
   }
 
   saveTodos() {
-    this.savingTodos = true;
-    let project: Project;
-    this.projects.filter(p => {
-      p.tasks.filter( t => {
-        if (t === this.currentTask) {
-          project = p;
-        }
-       });
-    });
-
-    this.projectsHttpService.updateProject(project).subscribe(data => {
-      project = data;
+    this.projectsHttpService.updateTask(this.currentTask).subscribe(data => {
+      this.currentTask = data;
       this.todosSaved = true;
       this.savingTodos = false;
 

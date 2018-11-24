@@ -29,11 +29,14 @@ public class Task {
 	@OrderColumn
 	private List<String> todos = new ArrayList<>();
 	
+	@Column(nullable = false)
+	private int currentTodoIndex = 0;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="project_id")
 	@JsonIgnore
 	private Project project;
-	
+
 	public Task() {}
 	
 	public Task(long id, String name, List<String> todos, Project project) {
@@ -66,6 +69,14 @@ public class Task {
 
 	public void setTodos(List<String> todos) {
 		this.todos = todos;
+	}
+	
+	public int getCurrentTodoIndex() {
+		return currentTodoIndex;
+	}
+	
+	public void setCurrentTodoIndex(int currentTodoIndex) {
+		this.currentTodoIndex = currentTodoIndex;
 	}
 
 	public Project getProject() {

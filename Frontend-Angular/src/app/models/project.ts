@@ -8,4 +8,5 @@ export class Task {
   id?: number;
   name?: string;
   todos?: string[];
+  currentTodoIndex?: number;
 }
