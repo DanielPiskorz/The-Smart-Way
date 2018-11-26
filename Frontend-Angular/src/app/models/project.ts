@@ -7,6 +7,6 @@ export class Project {
 export class Task {
   id?: number;
   name?: string;
-  todos?: string[];
+  todos?: string[] = [];
   currentTodoIndex?: number;
 }

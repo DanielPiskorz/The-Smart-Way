@@ -10,7 +10,6 @@ export class HomeComponent implements OnInit {
   info: any;
 
   constructor(private token: TokenStorageService, private renderer: Renderer2) {
-    this.setBackground();
    }
 
   ngOnInit() {
@@ -26,12 +25,6 @@ export class HomeComponent implements OnInit {
     window.location.reload();
   }
 
-  setBackground() {
-    this.renderer.setStyle(document.body, 'background-image', 'url("/assets/images/home-background.jpg")');
-    this.renderer.setStyle(document.body, 'webkit-background-size', 'cover');
-    this.renderer.setStyle(document.body, '-moz-background-size', 'cover');
-    this.renderer.setStyle(document.body, '-o-background-size', 'cover');
-    this.renderer.setStyle(document.body, 'background-size', 'cover');
-  }
+
 
 }

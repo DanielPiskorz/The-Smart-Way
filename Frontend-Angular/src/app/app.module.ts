@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { UserProjectsComponent } from './user-projects/user-projects.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProjectComponent } from './project/project.component';
+import { CurrentTaskComponent } from './current-task/current-task.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     HomeComponent,
     RegisterComponent,
-    UserProjectsComponent
+    UserProjectsComponent,
+    ProjectComponent,
+    CurrentTaskComponent
   ],
   imports: [
     BrowserModule,

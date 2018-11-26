@@ -1,87 +1,29 @@
-<div class="row">
-    <div class="col">
-        <h3 class="m-2">Projects</h3>
-        <div class="card mb-3" *ngFor="let project of projects"
-          (mouseenter)="projectMouseAction(project.id, 'enter')"
-          (mouseleave)="projectMouseAction(project.id, 'leave')">
+<div id="projects_bg">
+  <div class="row">
+      <div class="col">
+          <h3 class="m-2">Projects</h3>
 
-          <div *ngIf="project !== editingProject; else editingProjectHeader" class="card-header" (mouseenter)="projectHeaderMouseAction(project.id, 'enter')"
-           (mouseleave)="projectHeaderMouseAction(project.id, 'leave')">
-              <div *ngIf="mouseOnProjectHeaderId === project.id" class="project-options" @projectOptions >
-                  <fa-icon [icon]="faTimes" (click)="deleteProject(project)" class="delete-button"></fa-icon>
-                  <fa-icon [icon]="faPencilAlt" (click)="editProjectHeader(project)" class="edit-button"></fa-icon>
+          <app-project *ngFor="let project of projects" [project]="project" (selectedTask)="changeCurrentTask($event)"> </app-project>
+
+
+
+          <div class="card">
+            <div class="card-header p-2">
+              <div class="input-group">
+                  <input type="text" placeHolder="new project name" class="form-control" [(ngModel)]="newProjectName" (keyup.enter)="addProject()">
+                  <span class="btn btn-success ml-2" (click)="addProject()">
+                    <fa-icon [icon]="faPlus"></fa-icon>
+                  </span>
               </div>
-            {{project.name}}
-          </div>
-
-              <ul class="list-group list-group-flush">
-                  <li *ngFor="let task of project.tasks" class="list-group-item"
-                  (click)="selectTask(task)">
-                    <span *ngIf="task !== editingTask; else editingTaskName">
-                        <fa-icon [icon]="faPencilAlt" (click)="editTaskName(task)" class="task-edit-button"></fa-icon>
-                        {{task.name}}
-                    </span>
-                  </li>
-              </ul>
-              <span *ngIf="mouseOnProjectId === project.id && showNewTaskButton" (click)="showNewTaskInput(project)" class="btn btn-success new-task-button" @newTaskButton>
-                  <fa-icon  [icon]="faPlus" ></fa-icon>&nbsp; new task
-              </span>
-
-        </div>
-        <div class="card">
-          <div class="card-header p-2">
-            <div class="input-group">
-                <input type="text" placeHolder="new project name" class="form-control" [(ngModel)]="newProjectName" (keyup.enter)="addProject()">
-                <span class="btn btn-success ml-2" (click)="addProject()">
-                  <fa-icon [icon]="faPlus"></fa-icon>
-                </span>
             </div>
           </div>
         </div>
+
+        <div class="col">
+            <app-current-task [currentTask]="currentTask"></app-current-task>
       </div>
 
-      <div class="col">
-          <h3 *ngIf="currentTask" class="m-2">{{currentTask.name}}</h3>
-          <div *ngIf="currentTask; else selectTaskInfo" class="card">
-              <ul class="list-group list-group-flush">
-                  <li *ngFor="let todo of currentTask.todos; let i = index" [attr.data-index]="i"
-                  [ngClass]="[(i < currentTask.currentTodoIndex) ?
-                  'td-done' : (i > currentTask.currentTodoIndex) ?
-                  'td-todo' : 'td-doing', 'list-group-item']">
-                    {{todo}} <span *ngIf="i === currentTask.currentTodoIndex" (click)="done()" class="btn btn-success">Done!</span>
-                   </li>
-
-                  <li>
-                    <input class="list-group-item" type="text" class="form-control" [(ngModel)]="newTodoName" (keyup.enter)="addNewTodo(newTodoName)">
-                  </li>
-              </ul>
-          </div>
-          <span *ngIf="!todosSaved" class="btn btn-info col-3 mt-2" (click)="saveTodos()" >save todos</span>
-      </div>
-</div>
 
 
-<ng-template #selectTaskInfo>
-  <span class="font-italic">Select a task, please.</span>
-</ng-template>
 
-<ng-template #editingProjectHeader>
-  <div class="card-header p-2">
-    <div class="input-group">
-      <input type="text" class="form-control" [(ngModel)]="editingProject.name" (keyup.enter)="saveProjectHeader(editingProject)">
-        <span class="btn btn-success ml-2" (click)="saveProjectHeader(editingProject)">
-          <fa-icon [icon]="faSave"></fa-icon>
-          </span>
-        </div>
-      </div>
-</ng-template>
-
-<ng-template #editingTaskName>
-    <div class="input-group">
-   <input type="text" class="form-control m-0 p-0" [(ngModel)]="editingTask.name" (keyup.enter)="saveTaskName()">
-   <span class="btn btn-success ml-2" (click)="saveTaskName()">
-     <fa-icon [icon]="faSave"></fa-icon>
-  </span>
-  </div>
-</ng-template>
-
+    </div>

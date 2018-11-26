@@ -1,0 +1,11 @@
+.td-done {
+  color: green;
+}
+
+.td-doing {
+  color: blue;
+}
+
+.td-todo {
+  color: black;
+}

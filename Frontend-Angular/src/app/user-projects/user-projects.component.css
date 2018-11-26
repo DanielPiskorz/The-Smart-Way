@@ -1,48 +1,5 @@
-.project-options{
-  position: absolute;
-  left: -70px;
-  letter-spacing: 10%;
-  font-size: 1.8rem;
-  top: 2px;
+#projects_bg div{
+  background: rgba(240, 240, 240, 0.7);
+  background-size: cover;
 
-}
-
-
-.project-options .delete-button{
-  color: rgb(221, 83, 83);
-}
-
-.project-options .delete-button:hover{
-  color: rgb(175, 33, 33);
-}
-
-.project-options .edit-button{
-  color: rgb(97, 128, 228);
-  margin: 10px;
-}
-.project-options .edit-button:hover{
-  color: rgb(47, 85, 209);
-  margin: 10px;
-}
-
-.new-task-button {
-  position: absolute;
-  bottom: -36px;
-  z-index: 2;
-  opacity: 50;
-
-}
-
-
-/* CURRENT TASK TODO LIST CLASSES */
-.td-done {
-  color: green;
-}
-
-.td-doing {
-  color: blue;
-}
-
-.td-todo {
-  color: black;
 }
