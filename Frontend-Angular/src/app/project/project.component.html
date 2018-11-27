@@ -1,4 +1,4 @@
-<div class="card mb-3"
+<div  *ngIf="project.id > 0"  class="card mb-3"
           (mouseenter)="projectMouseAction('enter')"
           (mouseleave)="projectMouseAction('leave')">
 
@@ -15,10 +15,19 @@
               <ul class="list-group list-group-flush">
                   <li *ngFor="let task of project.tasks" class="list-group-item"
                   (click)="selectTask(task)">
-                    <span *ngIf="task !== editingTask; else editingTaskName">
+                    <div class="row">
+                    <div *ngIf="task !== editingTask; else editingTaskName" class="col-9">
                         <fa-icon [icon]="faPencilAlt" (click)="editTaskName(task)" class="task-edit-button"></fa-icon>
                         {{task.name}}
-                    </span>
+                    </div>
+                    <div class="col-3">
+                      <p class="progress-count font-weight-bold text-center m-0">{{task.currentTodoIndex}} / {{task.todos.length}}</p>
+                      <div class="progress" style="height: 5px" >
+                        <div class="progress-bar bg-success" style.width="{{(task.currentTodoIndex/task.todos.length)*100}}%">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   </li>
               </ul>
               <span *ngIf="mouseOnProject && showNewTaskButton" (click)="showNewTaskInput()" class="btn btn-success new-task-button" @newTaskButton>

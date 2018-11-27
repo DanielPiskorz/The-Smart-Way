@@ -37,3 +37,8 @@
   color: white;
   background: rgba(50, 200, 30, 0.9);
 }
+
+.progress-count{
+  font-size: 0.75rem;
+  color: green;
+}

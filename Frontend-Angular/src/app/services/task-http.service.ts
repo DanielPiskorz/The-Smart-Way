@@ -13,10 +13,10 @@ export class TaskHttpService {
   constructor(private http: HttpClient) { }
 
   todoDone(task: Task): Observable<Task> {
-    return this.http.patch(`${this.TASK_URL}/${task.id}/done`, null);
+    return this.http.patch<Task>(`${this.TASK_URL}/${task.id}/done`, null);
   }
 
   updateTask(task: Task): Observable<Task> {
-    return this.http.patch(`${this.TASK_URL}/${task.id}`, task);
+    return this.http.patch<Task>(`${this.TASK_URL}/${task.id}`, task);
   }
 }

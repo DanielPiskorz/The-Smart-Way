@@ -100,9 +100,9 @@ export class ProjectComponent implements OnInit {
     this.editingTask = task;
   }
 
-  saveProjectHeader(project: Project) {
-    this.projectsHttpService.updateProject(project).subscribe(data => {
-      project = data;
+  saveProjectHeader() {
+    this.projectsHttpService.updateProject(this.project).subscribe(data => {
+      this.update(data);
       this.headerEditing = false;
     });
   }
@@ -112,7 +112,7 @@ export class ProjectComponent implements OnInit {
 
 
       this.projectsHttpService.updateProject(this.project).subscribe(data => {
-       this.project = data;
+       this.update(data);
         this.editingTask = new Task();
       });
 
@@ -122,7 +122,16 @@ export class ProjectComponent implements OnInit {
 
   deleteProject() {
     this.projectsHttpService.deleteProject(this.project).subscribe(
-      () => this.project = null
+      () => this.project = new Project()
     );
+  }
+
+  public update(project: Project) {
+    if (this.project.id === project.id) {
+      this.project.name = project.name;
+      this.project.tasks = project.tasks;
+    } else {
+      console.error("Could't update project: id doesn't match.");
+    }
   }
 }
