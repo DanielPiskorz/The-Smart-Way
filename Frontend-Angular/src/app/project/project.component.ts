@@ -47,6 +47,7 @@ export class ProjectComponent implements OnInit {
 
   @Output()
   selectedTask = new EventEmitter<Task>();
+  selectedTaskLocal = new Task();
 
   mouseOnProject = false;
   mouseOnProjectHeader = false;
@@ -93,6 +94,7 @@ export class ProjectComponent implements OnInit {
 
   selectTask(selectedTask: Task) {
     this.selectedTask.emit(selectedTask);
+    this.selectedTaskLocal = selectedTask;
   }
 
   editTaskName(task: Task) {

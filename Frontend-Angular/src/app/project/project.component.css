@@ -38,7 +38,17 @@
   background: rgba(50, 200, 30, 0.9);
 }
 
+.progress{
+  height: 5px;
+}
+
 .progress-count{
   font-size: 0.75rem;
   color: green;
 }
+
+.selected-task{
+  background-color: rgb(220, 220, 220);
+  font-weight: 700;
+}
+

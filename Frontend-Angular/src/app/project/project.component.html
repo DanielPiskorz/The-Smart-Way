@@ -14,15 +14,15 @@
 
               <ul class="list-group list-group-flush">
                   <li *ngFor="let task of project.tasks" class="list-group-item"
-                  (click)="selectTask(task)">
+                  (click)="selectTask(task)" [ngClass]="[((selectedTaskLocal === task) ? 'selected-task' : 'default-task'), 'list-group-item']">
                     <div class="row">
                     <div *ngIf="task !== editingTask; else editingTaskName" class="col-9">
                         <fa-icon [icon]="faPencilAlt" (click)="editTaskName(task)" class="task-edit-button"></fa-icon>
                         {{task.name}}
                     </div>
-                    <div class="col-3">
+                    <div class="col-3" *ngIf="task.id > 0">
                       <p class="progress-count font-weight-bold text-center m-0">{{task.currentTodoIndex}} / {{task.todos.length}}</p>
-                      <div class="progress" style="height: 5px" >
+                      <div class="progress" >
                         <div class="progress-bar bg-success" style.width="{{(task.currentTodoIndex/task.todos.length)*100}}%">
                         </div>
                       </div>
