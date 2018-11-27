@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { TaskHttpService } from '../services/task-http.service';
 import { Task } from '../models/project';
 
@@ -7,10 +7,10 @@ import { Task } from '../models/project';
   templateUrl: './current-task.component.html',
   styleUrls: ['./current-task.component.css']
 })
-export class CurrentTaskComponent implements OnInit {
+export class CurrentTaskComponent implements OnInit, OnChanges {
 
 
-  constructor(private taskHttpService: TaskHttpService) { }
+  constructor(private taskHttpService: TaskHttpService) {}
 
   @Input()
   currentTask: Task;
@@ -21,8 +21,16 @@ export class CurrentTaskComponent implements OnInit {
   synchronizedTodos: number;
   newTodoName;
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.currentTask.previousValue !== changes.currentTask.currentValue) {
+      this.synchronizedTodos = this.currentTask.todos.length;
+    }
   }
+
+  ngOnInit() {}
+
+
+
 
   done() {
     this.taskHttpService.todoDone(this.currentTask).subscribe(data => {
@@ -33,6 +41,11 @@ export class CurrentTaskComponent implements OnInit {
 
 
   saveTodos() {
+
+    if (this.newTodoName.length > 0) {
+      this.addNewTodo(this.newTodoName);
+    }
+
     this.taskHttpService.updateTask(this.currentTask).subscribe(data => {
       this.update(data);
       this.synchronizedTodos = data.todos.length;

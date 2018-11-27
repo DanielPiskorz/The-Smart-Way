@@ -9,3 +9,7 @@
 .td-todo {
   color: black;
 }
+
+.td-not-saved{
+  color: gray;
+}

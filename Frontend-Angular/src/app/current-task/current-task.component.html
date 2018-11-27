@@ -2,10 +2,10 @@
 <div *ngIf="currentTask; else selectTaskInfo" class="card">
     <ul class="list-group list-group-flush">
         <li *ngFor="let todo of currentTask.todos; let i = index" [attr.data-index]="i"
-        [ngClass]="[(i < currentTask.currentTodoIndex) ?
+        [ngClass]="[(i > synchronizedTodos - 1) ? 'td-not-saved' : (i < currentTask.currentTodoIndex) ?
         'td-done' : (i > currentTask.currentTodoIndex) ?
         'td-todo' : 'td-doing', 'list-group-item']">
-          {{todo}} <span *ngIf="i === currentTask.currentTodoIndex" (click)="done()" class="btn btn-success">Done!</span>
+          {{todo}} <span *ngIf="i === currentTask.currentTodoIndex  && !(i > synchronizedTodos - 1)" (click)="done()" class="btn btn-success">Done!</span>
           </li>
 
         <li>
@@ -13,7 +13,7 @@
         </li>
     </ul>
 </div>
-<span *ngIf="!todosSaved" class="btn btn-info col-3 mt-2" (click)="saveTodos()" >save todos</span>
+<span *ngIf="!todosSaved" class="btn btn-outline-dark col-2 mt-2" (click)="saveTodos()" >save</span>
 
 
 <ng-template #selectTaskInfo>
