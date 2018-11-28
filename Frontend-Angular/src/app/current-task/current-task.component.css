@@ -13,3 +13,7 @@
 .td-not-saved{
   color: gray;
 }
+
+.inactive-input{
+  background: rgb(200, 200, 200);
+}

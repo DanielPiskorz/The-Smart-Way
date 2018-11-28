@@ -9,11 +9,11 @@
           </li>
 
         <li>
-          <input class="list-group-item" type="text" class="form-control" [(ngModel)]="newTodoName" (keyup.enter)="addNewTodo(newTodoName)">
+          <input class="list-group-item" placeholder="add todo..." type="text" [ngClass]="['form-control',(newTodoName.length > 0) ? '': 'inactive-input']" [(ngModel)]="newTodoName" (keyup.enter)="addNewTodo(newTodoName)" (focusout)="saveTodos()">
         </li>
     </ul>
 </div>
-<span *ngIf="!todosSaved" class="btn btn-outline-dark col-2 mt-2" (click)="saveTodos()" >save</span>
+<!-- <span *ngIf="!todosSaved" class="btn btn-outline-dark col-2 mt-2" (click)="saveTodos()" >save</span> -->
 
 
 <ng-template #selectTaskInfo>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { TokenStorageService } from './services/token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,13 @@ import { TokenStorageService } from './services/token-storage.service';
 export class AppComponent implements OnInit {
   private roles: string[];
   private authority: string;
+  private loggedIn = false;
 
-  constructor(private tokenStorage: TokenStorageService, private renderer: Renderer2) { }
+  constructor(private tokenStorage: TokenStorageService, private renderer: Renderer2, private router: Router) {
+    tokenStorage.loggedIn.subscribe( condition => {
+      this.loggedIn = condition;
+    });
+  }
 
   ngOnInit() {
     this.setBackground();
@@ -35,7 +41,7 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.tokenStorage.signOut();
-    window.location.reload();
+    this.router.navigate(['/home']);
   }
 
   setBackground() {

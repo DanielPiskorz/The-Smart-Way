@@ -19,7 +19,7 @@ export class CurrentTaskComponent implements OnInit, OnChanges {
   savingTodos = false;
 
   synchronizedTodos: number;
-  newTodoName;
+  newTodoName = '';
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.currentTask.previousValue !== changes.currentTask.currentValue) {
@@ -41,18 +41,19 @@ export class CurrentTaskComponent implements OnInit, OnChanges {
 
 
   saveTodos() {
-
     if (this.newTodoName.length > 0) {
       this.addNewTodo(this.newTodoName);
     }
+    if (!this.todosSaved) {
+      this.taskHttpService.updateTask(this.currentTask).subscribe(data => {
+        this.update(data);
+        this.synchronizedTodos = data.todos.length;
+        this.todosSaved = true;
+        this.savingTodos = false;
 
-    this.taskHttpService.updateTask(this.currentTask).subscribe(data => {
-      this.update(data);
-      this.synchronizedTodos = data.todos.length;
-      this.todosSaved = true;
-      this.savingTodos = false;
+      });
+    }
 
-    });
   }
 
   addNewTodo(name) {

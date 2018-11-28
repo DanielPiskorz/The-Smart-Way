@@ -1,12 +1,12 @@
 <nav class="navbar navbar-dark main-navbar">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand text-light" href="#">The Smart Way</a>
+      <a class="navbar-brand text-light" routerLink="/home">The Smart Way</a>
     </div>
 
 
-      <li *ngIf="authority" class="nav-item text-white">
-       {{tokenStorage.getUsername()}} &nbsp; | &nbsp;<a class="btn btn-outline-primary" (click)="logout()">Logout</a>
+      <li *ngIf="loggedIn || authority" class="nav-item text-white">
+       {{tokenStorage.getUsername()}} &nbsp; | &nbsp;<a class="btn btn-outline-light" (click)="logout()">Logout</a>
       </li>
   </div>
 </nav>

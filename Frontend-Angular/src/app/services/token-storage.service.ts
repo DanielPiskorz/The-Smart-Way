@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
@@ -9,10 +10,16 @@ const AUTHORITIES_KEY = 'AuthAuthorities';
 })
 export class TokenStorageService {
   private roles: Array<string> = [];
+  public loggedIn = new BehaviorSubject<boolean>(false);
   constructor() { }
+
+  notifyAfterLoginSuccess() {
+    this.loggedIn.next(true);
+  }
 
   signOut() {
     window.sessionStorage.clear();
+    this.loggedIn.next(false);
   }
 
   public saveToken(token: string) {
