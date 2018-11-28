@@ -21,6 +21,8 @@ export class CurrentTaskComponent implements OnInit, OnChanges {
   synchronizedTodos: number;
   newTodoName = '';
 
+  maxTodoNameLength = 128;
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.currentTask.previousValue !== changes.currentTask.currentValue) {
       this.synchronizedTodos = this.currentTask.todos.length;
@@ -42,6 +44,7 @@ export class CurrentTaskComponent implements OnInit, OnChanges {
 
   saveTodos() {
     if (this.newTodoName.length > 0) {
+      this.checkNameLength();
       this.addNewTodo(this.newTodoName);
     }
     if (!this.todosSaved) {
@@ -71,6 +74,12 @@ export class CurrentTaskComponent implements OnInit, OnChanges {
       this.currentTask.currentTodoIndex = task.currentTodoIndex;
     } else {
       console.error("Could't update task: id doesn't match.");
+    }
+  }
+
+  checkNameLength() {
+    if (this.newTodoName.length > this.maxTodoNameLength) {
+      this.newTodoName = this.newTodoName.substring(0, this.maxTodoNameLength);
     }
   }
 

@@ -17,3 +17,10 @@
 .inactive-input{
   background: rgb(200, 200, 200);
 }
+
+.input-length {
+  color: gray;
+  size: 0.5 rem;
+  position: absolute;
+}
+
