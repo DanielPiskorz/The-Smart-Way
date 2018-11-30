@@ -18,7 +18,7 @@ export class UserProjectsComponent implements OnInit {
   constructor(private projectsHttpService: ProjectsHttpService) { }
 
   projects: Array<Project>;
-  currentTask: Task;
+  currentTask = new Task;
 
   newProjectName: string;
   mouseOnProjectId: number;
@@ -66,7 +66,20 @@ export class UserProjectsComponent implements OnInit {
 
   }
 
+  finishCurrentTask() {
+    this.removeTask(this.currentTask);
+  }
 
+  removeTask(task: Task) {
+    const project: Project = this.projects.filter(p => p.tasks.includes(task))[0];
+    if (project) {
+      project.tasks.splice(project.tasks.indexOf(task), 1);
+      this.projectsHttpService.updateProject(project).subscribe(data => {
+        this.projects.splice(this.projects.indexOf(project), 1, data);
+        this.currentTask = new Task;
+      });
+    }
+  }
 
 
 
