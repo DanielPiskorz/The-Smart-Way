@@ -40,6 +40,9 @@ export class ProjectComponent implements OnInit {
   faPencilAlt = faPencilAlt;
   faSave = faSave;
 
+  projectNameMaxLength = 128;
+  taskNameMaxLength = 128;
+
   constructor(private projectsHttpService: ProjectsHttpService) { }
 
   @Input()
@@ -103,16 +106,16 @@ export class ProjectComponent implements OnInit {
   }
 
   saveProjectHeader() {
-    this.projectsHttpService.updateProject(this.project).subscribe(data => {
-      this.update(data);
-      this.headerEditing = false;
-    });
+    if (this.project.name.length > 0 && this.project.name.length < this.projectNameMaxLength) {
+      this.projectsHttpService.updateProject(this.project).subscribe(data => {
+        this.update(data);
+        this.headerEditing = false;
+      });
+    }
   }
 
   saveTaskName() {
-    if (this.editingTask.name.length > 0) {
-
-
+    if (this.editingTask.name.length > 0 && this.editingTask.name.length < this.taskNameMaxLength) {
       this.projectsHttpService.updateProject(this.project).subscribe(data => {
        this.update(data);
         this.editingTask = new Task();
@@ -128,12 +131,21 @@ export class ProjectComponent implements OnInit {
     );
   }
 
-  public update(project: Project) {
+  update(project: Project) {
     if (this.project.id === project.id) {
       this.project.name = project.name;
-      this.project.tasks = project.tasks;
+      this.project.tasks.forEach( baseTask => {
+        project.tasks.forEach( taskToCopyFrom => {
+          if (baseTask.id === taskToCopyFrom.id) {
+            baseTask.name  = taskToCopyFrom.name;
+            baseTask.currentTodoIndex = taskToCopyFrom.currentTodoIndex;
+            baseTask.todos = taskToCopyFrom.todos;
+          }
+        });
+      });
     } else {
       console.error("Could't update project: id doesn't match.");
     }
   }
+
 }

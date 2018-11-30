@@ -20,7 +20,7 @@
                         <fa-icon [icon]="faPencilAlt" (click)="editTaskName(task)" class="task-edit-button"></fa-icon>
                         {{task.name}}
                     </div>
-                    <div class="col-3" *ngIf="task.id > 0">
+                    <div class="col-3" *ngIf="task.id > 0 && task !== editingTask">
                       <p class="progress-count font-weight-bold text-center m-0">{{task.currentTodoIndex}} / {{task.todos.length}}</p>
                       <div class="progress" >
                         <div class="progress-bar bg-success" style.width="{{(task.currentTodoIndex/task.todos.length)*100}}%">
@@ -39,20 +39,24 @@
         <ng-template #editingProjectHeader>
           <div class="card-header p-2">
             <div class="input-group">
-              <input type="text" class="form-control" [(ngModel)]="project.name" (keyup.enter)="saveProjectHeader()">
-                <span class="btn btn-success ml-2" (click)="saveProjectHeader()">
+              <input type="text" [ngClass]="[(project.name.length > projectNameMaxLength)? 'is-invalid' : '', 'form-control']" [(ngModel)]="project.name" (keyup.enter)="saveProjectHeader()">
+                <span [ngClass]="[(project.name.length > taskNameMaxLength) ? 'disabled' : 'btn-success', 'btn', 'ml-2']" (click)="saveProjectHeader()">
                   <fa-icon [icon]="faSave"></fa-icon>
                   </span>
                 </div>
+                <span *ngIf="project.name.length > projectNameMaxLength" class="text-danger">Project name is too long.</span>
               </div>
+
         </ng-template>
 
         <ng-template #editingTaskName>
-            <div class="input-group">
-           <input type="text" class="form-control m-0 p-0" [(ngModel)]="editingTask.name" (keyup.enter)="saveTaskName()">
-           <span class="btn btn-success ml-2" (click)="saveTaskName()">
+            <div class="input-group p-0">
+           <input type="text" [ngClass]="[(editingTask.name.length > taskNameMaxLength)? 'is-invalid' : '', 'form-control', 'm-0', 'p-0', 'pl-2']" [(ngModel)]="editingTask.name" (keyup.enter)="saveTaskName()">
+           <span [ngClass]="[(editingTask.name.length > taskNameMaxLength) ? 'disabled' : 'btn-success', 'btn', 'ml-2']" (click)="saveTaskName()">
              <fa-icon [icon]="faSave"></fa-icon>
           </span>
+
           </div>
+          <span *ngIf="editingTask.name.length > taskNameMaxLength" class="text-danger font-weight-normal mb-0">Task name is too long.</span>
         </ng-template>
 
