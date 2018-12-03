@@ -47,9 +47,8 @@ public class Project {
 
 	public Project() { }
 
-	public Project(long id, String name, List<Task> tasks) {
+	public Project(String name, List<Task> tasks) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.tasks = tasks;
 	}

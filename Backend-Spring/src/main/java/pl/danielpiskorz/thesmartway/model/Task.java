@@ -39,9 +39,8 @@ public class Task {
 
 	public Task() {}
 	
-	public Task(long id, String name, List<String> todos, Project project) {
+	public Task(String name, List<String> todos, Project project) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.todos = todos;
 		this.project = project;
