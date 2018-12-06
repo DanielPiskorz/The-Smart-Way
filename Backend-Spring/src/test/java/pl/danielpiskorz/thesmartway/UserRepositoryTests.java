@@ -12,13 +12,13 @@ import pl.danielpiskorz.thesmartway.repository.UserRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class UserRepositoryTest {
+public class UserRepositoryTests {
 
 	@Autowired
 	UserRepository userRepository;
 	
 	@Test
-	public void saveAndFindByUsername(){
+	public void findByUsername_validUsername_matchingUser(){
 		//given
 		User givenUser = new User("George", "george123", "happyGeorge123@gmail.com", "ilikeflowers123");
 		User savedUser = userRepository.save(givenUser);

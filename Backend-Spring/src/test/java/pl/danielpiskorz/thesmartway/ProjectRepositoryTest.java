@@ -1,6 +1,7 @@
 package pl.danielpiskorz.thesmartway;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -8,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import pl.danielpiskorz.thesmartway.model.Project;
@@ -37,7 +37,7 @@ public class ProjectRepositoryTest{
 	}
 	
 	@Test
-	public void saveAndFindByID(){
+	public void findById_savedProject_matchingProject(){
 		//given
 		Project project = new Project("Awesome project", new ArrayList<Task>());
 		project.setOwner(projectOwner);
@@ -52,6 +52,5 @@ public class ProjectRepositoryTest{
 		Assertions.assertThat(project.getOwner()).isEqualTo(projectOwner);
 		
 	}
-	
-	
+		
 }

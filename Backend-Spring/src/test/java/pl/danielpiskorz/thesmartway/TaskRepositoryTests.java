@@ -18,7 +18,7 @@ import pl.danielpiskorz.thesmartway.repository.TaskRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class TaskRepositoryTest {
+public class TaskRepositoryTests {
 
 	@Autowired
 	TaskRepository taskRepository;
@@ -29,12 +29,12 @@ public class TaskRepositoryTest {
 	private Project parentProject;
 	
 	@Before
-	public void setUpParentProject(){
+	public void setUp(){
 		parentProject = projectRepository.save( new Project("Exciting Project", new ArrayList<Task>()));
 	}
 	
 	@Test
-	public void saveAndFindById(){
+	public void findById_presentTaskId_taskMatch(){
 		//given
 		Task task = new Task("Exctiting project!", new ArrayList<String>(), parentProject);
 		task = taskRepository.save(task);

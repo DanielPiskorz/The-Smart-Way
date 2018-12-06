@@ -1,5 +1,6 @@
 package pl.danielpiskorz.thesmartway.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -62,7 +63,7 @@ public class User{
     private Set<Role> roles = new HashSet<>();
     
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Project> projects;
+    private List<Project> projects = new ArrayList<>();
 
 	public User() {
 	}

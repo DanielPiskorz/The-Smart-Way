@@ -4,21 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.danielpiskorz.thesmartway.model.Task;
-import pl.danielpiskorz.thesmartway.repository.ProjectRepository;
 import pl.danielpiskorz.thesmartway.repository.TaskRepository;
 
 @Service
 public class TaskServiceImpl implements TaskService{
 
 	@Autowired
-	ProjectRepository projectRepository;
-	
-	@Autowired
 	TaskRepository taskRepository;
 	
-	
 	@Override
-	public Task incrementTodoIndex(String username, int taskId) {
+	public Task incrementTodoIndex(String username, long taskId) {
+		if(!(taskId > 0)){
+			throw new IllegalArgumentException("Task ID must be greater than 0.");
+		}
+		
 		Task task = taskRepository.findById(taskId);
 		
 		if(!task.getProject().getOwner().getUsername().equals(username))
@@ -37,9 +36,12 @@ public class TaskServiceImpl implements TaskService{
 
 	@Override
 	public Task updateTodos(String username, Task task) {
+		
+		if(task == null){
+			throw new NullPointerException("Given task must not be null.");
+		}
+		
 		Task taskToSave = taskRepository.findById(task.getId());
-		
-		
 		
 		if(!taskToSave.getProject().getOwner().getUsername().equals(username))
 			throw new SecurityException("User doesn't own the task");
@@ -49,6 +51,7 @@ public class TaskServiceImpl implements TaskService{
 		return taskRepository.save(taskToSave);
 		
 	}
+	
 
 	
 }

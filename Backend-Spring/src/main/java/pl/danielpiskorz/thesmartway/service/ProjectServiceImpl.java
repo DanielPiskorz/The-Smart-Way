@@ -16,15 +16,21 @@ import pl.danielpiskorz.thesmartway.repository.UserRepository;
 public class ProjectServiceImpl implements ProjectService {
 
 	@Autowired
-	ProjectRepository projectRepository;
+	private ProjectRepository projectRepository;
 	
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
 	
 	@Override
 	public Project createProject(String username, String name) {
+		
+		if(name == null)
+			throw new NullPointerException("Project name must not be null.");
+		else if (name.isEmpty())
+			throw new IllegalArgumentException("Project name must not be empty.");
+		
 		Project project = new Project();
 		project.setName(name);
 		setOwnerByUsername(project, username);
