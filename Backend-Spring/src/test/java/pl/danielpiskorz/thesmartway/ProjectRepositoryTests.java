@@ -19,7 +19,7 @@ import pl.danielpiskorz.thesmartway.repository.UserRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class ProjectRepositoryTest{
+public class ProjectRepositoryTests{
 	
 	@Autowired
 	private ProjectRepository projectRepository;
@@ -52,5 +52,27 @@ public class ProjectRepositoryTest{
 		Assertions.assertThat(project.getOwner()).isEqualTo(projectOwner);
 		
 	}
+	
+	public void findAllProjectsByOwnerUsername_validUsername_allProjects(){
+		//given
+		Project[] projects = new Project[] {
+				new Project("Awesome project", new ArrayList<Task>()),
+				new Project("Another..", new ArrayList<Task>()),
+				new Project("Third excting project xd", new ArrayList<Task>())};
 		
+		for(Project project : projects){
+			project.setOwner(projectOwner);
+			projectOwner.getProjects().add(project);
+			project = projectRepository.save(project);
+		}
+		
+		//when
+		List<Project> foundProjects = 
+				projectRepository.findAllProjectsByOwnerUsername(projectOwner.getName());
+		
+		//then
+		Assertions.assertThat(foundProjects).isNotNull();
+		Assertions.assertThat(foundProjects.size()).isEqualTo(projects.length);
+		Assertions.assertThat(foundProjects.get(1)).isEqualTo(projects[1]);
+	}	
 }
