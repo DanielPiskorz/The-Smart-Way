@@ -1,30 +1,26 @@
 <div id="projects_bg">
-  <div class="row">
-      <div class="col-6">
-          <h3 class="m-2">Projects</h3>
+  <div class="row flex-row-reverse">
 
-          <app-project *ngFor="let project of projects" [project]="project" (selectedTask)="changeCurrentTask($event)"> </app-project>
+      <div class="col-md-6">
+          <app-current-task [currentTask]="currentTask"></app-current-task>
+          <div *ngIf="currentTask.currentTodoIndex === currentTask.todos.length" class="btn btn-success" (click)="finishCurrentTask()">finish task</div>
+    </div>
 
+    <div class="col-md-6">
+      <h3 class="m-2">Projects</h3>
 
+      <app-project *ngFor="let project of projects" [project]="project" (selectedTask)="changeCurrentTask($event)"> </app-project>
 
-          <div class="card">
-            <div class="card-header p-2">
-              <div class="input-group">
-                  <input type="text" placeHolder="new project name" class="form-control" [(ngModel)]="newProjectName" (keyup.enter)="addProject()">
-                  <span class="btn btn-success ml-2" (click)="addProject()">
-                    <fa-icon [icon]="faPlus"></fa-icon>
-                  </span>
-              </div>
-            </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="input-group">
+              <input type="text" placeHolder="new project name" class="form-control" [(ngModel)]="newProjectName" (keyup.enter)="addProject()">
+              <span class="btn btn-success ml-2" (click)="addProject()">
+                <fa-icon [icon]="faPlus"></fa-icon>
+              </span>
           </div>
         </div>
-
-        <div class="col-6">
-            <app-current-task [currentTask]="currentTask"></app-current-task>
-            <div *ngIf="currentTask.currentTodoIndex === currentTask.todos.length" class="btn btn-success" (click)="finishCurrentTask()">finish task</div>
       </div>
-
-
-
-
     </div>
+
+  </div>
