@@ -1,6 +1,7 @@
 <div  *ngIf="project.id > 0"  class="card mb-3"
           (mouseenter)="projectMouseAction('enter')"
-          (mouseleave)="projectMouseAction('leave')">
+          (mouseleave)="projectMouseAction('leave')"
+          >
 
 
           <div *ngIf="!headerEditing; else editingProjectHeader" class="card-header" (mouseenter)="projectHeaderMouseAction('enter')"

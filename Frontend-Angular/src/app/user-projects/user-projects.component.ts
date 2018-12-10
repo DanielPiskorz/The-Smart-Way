@@ -36,17 +36,11 @@ export class UserProjectsComponent implements OnInit {
     this.getProjects();
   }
 
-  // LOCAL start
-
 
   changeCurrentTask(task: Task) {
     this.currentTask = task;
   }
 
-
-
-  // LOCAL end
-  // HTTP SERVICE start
 
   getProjects() {
     this.projectsHttpService.getProjects().subscribe(data => {

@@ -31,6 +31,16 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         animate(100)
       ])
     ])
+    // ,
+    // trigger('entireProjectPanel', [
+    //   state('void', style({
+    //     opacity: 0,
+    //     left: -30
+    //   })),
+    //   transition('void <=> *', [
+    //     animate('1.5s cubic-bezier(0,.1,.31,.99)')
+    //   ])
+    // ])
   ]
 })
 export class ProjectComponent implements OnInit {
@@ -91,6 +101,7 @@ export class ProjectComponent implements OnInit {
   showNewTaskInput() {
     this.showNewTaskButton = false;
     const newTask = new Task();
+    newTask.name = '';
     this.project.tasks.push(newTask);
     this.editingTask = newTask;
   }
@@ -137,15 +148,33 @@ export class ProjectComponent implements OnInit {
       this.project.tasks.forEach( baseTask => {
         project.tasks.forEach( taskToCopyFrom => {
           if (baseTask.id === taskToCopyFrom.id) {
-            baseTask.name  = taskToCopyFrom.name;
-            baseTask.currentTodoIndex = taskToCopyFrom.currentTodoIndex;
-            baseTask.todos = taskToCopyFrom.todos;
+            this.copyTask(baseTask, taskToCopyFrom);
+            project.tasks.splice(project.tasks.indexOf(taskToCopyFrom), 1);
           }
         });
       });
+
+      console.log(project);
+
+      if (project.tasks.length === 1) {
+        this.project.tasks.forEach(t => {
+          if (!t.id) {
+            t.id = project.tasks[0].id;
+            this.copyTask(t, project.tasks[0]);
+          }
+        });
+      }
     } else {
       console.error("Could't update project: id doesn't match.");
     }
+  }
+
+
+
+  copyTask (taskTo: Task, taskFrom: Task) {
+        taskTo.name  = taskFrom.name;
+        taskTo.currentTodoIndex = taskFrom.currentTodoIndex;
+        taskTo.todos = taskFrom.todos;
   }
 
 }

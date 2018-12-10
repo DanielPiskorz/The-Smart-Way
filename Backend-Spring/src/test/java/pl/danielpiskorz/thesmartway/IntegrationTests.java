@@ -132,8 +132,6 @@ public class IntegrationTests {
     	
     	Assertions.assertThat(jwtToken).isNotEmpty().isNotNull();
     	
-    
-    	
     }
     
     @Test
