@@ -1,8 +1,6 @@
 <div  *ngIf="project.id > 0"  class="card mb-3"
           (mouseenter)="projectMouseAction('enter')"
-          (mouseleave)="projectMouseAction('leave')"
-          >
-
+          (mouseleave)="projectMouseAction('leave')">
 
           <div *ngIf="!headerEditing; else editingProjectHeader" class="card-header" (mouseenter)="projectHeaderMouseAction('enter')"
            (mouseleave)="projectHeaderMouseAction('leave')">
@@ -13,8 +11,8 @@
             {{project.name}}
           </div>
 
-              <ul class="list-group list-group-flush">
-                  <li *ngFor="let task of project.tasks" class="list-group-item"
+              <ul class="list-group list-group-flush" >
+                  <li @task *ngFor="let task of project.tasks" class="list-group-item"
                   (click)="selectTask(task)" [ngClass]="[((selectedTaskLocal === task) ? 'selected-task' : 'default-task'), 'list-group-item']">
                     <div class="row">
                     <div *ngIf="task !== editingTask; else editingTaskName" class="col-9">

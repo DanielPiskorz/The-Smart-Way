@@ -30,17 +30,20 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
       transition('void <=> *', [
         animate(100)
       ])
+    ]),
+    trigger('task', [
+      state('void', style({
+        opacity: 0,
+        left: -50,
+        height: 0,
+        'padding-top' : '0',
+        'padding-bottom' : '0'
+
+      })),
+      transition('* => void', [
+        animate('1.5s cubic-bezier(0,.1,.31,.99)')
+      ])
     ])
-    // ,
-    // trigger('entireProjectPanel', [
-    //   state('void', style({
-    //     opacity: 0,
-    //     left: -30
-    //   })),
-    //   transition('void <=> *', [
-    //     animate('1.5s cubic-bezier(0,.1,.31,.99)')
-    //   ])
-    // ])
   ]
 })
 export class ProjectComponent implements OnInit {
