@@ -3,7 +3,13 @@
 
       <div class="col-md-6">
           <app-current-task [currentTask]="currentTask"></app-current-task>
-          <div *ngIf="currentTask.currentTodoIndex === currentTask.todos.length" class="btn btn-success" (click)="finishCurrentTask()">finish task</div>
+          <div class="row bg-transparent justify-content-center">
+
+              <div *ngIf="currentTask.currentTodoIndex === currentTask.todos.length && currentTask.currentTodoIndex !== 0"
+              class="btn btn-success bg-success px-3 py-2 mt-4" (click)="finishCurrentTask()">FINISH TASK</div>
+
+          </div>
+
     </div>
 
     <div class="col-md-6">

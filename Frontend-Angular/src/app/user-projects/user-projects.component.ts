@@ -75,8 +75,4 @@ export class UserProjectsComponent implements OnInit {
     }
   }
 
-
-
-
-  // HTTP SERVICE end
 }
