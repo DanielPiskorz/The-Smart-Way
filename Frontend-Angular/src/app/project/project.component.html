@@ -1,8 +1,8 @@
-<div  *ngIf="project.id > 0"  class="card mb-3"
+<div  *ngIf="project.id > 0"  class="project card mb-3"
           (mouseenter)="projectMouseAction('enter')"
           (mouseleave)="projectMouseAction('leave')">
 
-          <div *ngIf="!headerEditing; else editingProjectHeader" class="card-header" (mouseenter)="projectHeaderMouseAction('enter')"
+          <div *ngIf="!headerEditing; else editingProjectHeader" class="card-header project-header" (mouseenter)="projectHeaderMouseAction('enter')"
            (mouseleave)="projectHeaderMouseAction('leave')">
               <div *ngIf="mouseOnProjectHeader" class="project-options" @projectOptions >
                   <fa-icon [icon]="faTimes" (click)="deleteProject(project)" class="delete-button"></fa-icon>

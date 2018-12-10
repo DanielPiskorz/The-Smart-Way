@@ -1,11 +1,23 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { TaskHttpService } from '../services/task-http.service';
 import { Task } from '../models/project';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-current-task',
   templateUrl: './current-task.component.html',
-  styleUrls: ['./current-task.component.css']
+  styleUrls: ['./current-task.component.css'],
+  // animations: [
+  //     trigger('doneButton', [
+  //       state('void', style({
+  //         opacity: 0,
+  //         'margin-top': '0'
+  //       })),
+  //       transition('void <=> *', [
+  //         animate(500)
+  //       ])
+  //     ])
+  // ]
 })
 export class CurrentTaskComponent implements OnInit, OnChanges {
 

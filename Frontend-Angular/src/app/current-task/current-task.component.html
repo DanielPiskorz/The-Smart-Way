@@ -5,11 +5,13 @@
         [ngClass]="[(i > synchronizedTodos - 1) ? 'td-not-saved' : (i < currentTask.currentTodoIndex) ?
         'td-done' : (i > currentTask.currentTodoIndex) ?
         'td-todo' : 'td-doing', 'list-group-item']">
-          {{todo}} <span *ngIf="i === currentTask.currentTodoIndex  && !(i > synchronizedTodos - 1)" (click)="done()" class="btn btn-success">Done!</span>
+          {{todo}} <span *ngIf="i === currentTask.currentTodoIndex  && !(i > synchronizedTodos - 1)" (click)="done()" class="btn btn-success float-right donebutton" @doneButton>DONE</span>
           </li>
 
         <li>
-          <input class="list-group-item" placeholder="add todo..." type="text" maxLength="maxTodoNameLength" [ngClass]="['form-control',(newTodoName.length > 0) ? '': 'inactive-input']" [(ngModel)]="newTodoName" (keyup)="checkNameLength()" (keyup.enter)="addNewTodo(newTodoName)" (focusout)="saveTodos()">
+          <input class="list-group-item" placeholder="add todo..." type="text" maxLength="maxTodoNameLength"
+          [ngClass]="['form-control',(newTodoName.length > 0) ? '': 'inactive-input']"
+          [(ngModel)]="newTodoName" (keyup)="checkNameLength()" (keyup.enter)="addNewTodo(newTodoName)" (focusout)="saveTodos()">
           <span class="input-length">{{newTodoName.length}}&nbsp;/&nbsp;{{maxTodoNameLength}}</span>
         </li>
 
