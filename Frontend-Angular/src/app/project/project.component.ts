@@ -63,6 +63,8 @@ export class ProjectComponent implements OnInit {
 
   @Output()
   selectedTask = new EventEmitter<Task>();
+
+  @Input()
   selectedTaskLocal = new Task();
 
   mouseOnProject = false;
@@ -72,6 +74,7 @@ export class ProjectComponent implements OnInit {
   showNewTaskButton = true;
 
   ngOnInit() {
+   // this.selectedTaskLocal =
   }
 
   projectMouseAction(action: string) {

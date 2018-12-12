@@ -15,7 +15,7 @@
     <div class="col-md-6">
       <h3 class="m-2">Projects</h3>
 
-      <app-project *ngFor="let project of projects" [project]="project" (selectedTask)="changeCurrentTask($event)"> </app-project>
+      <app-project *ngFor="let project of projects" [project]="project" (selectedTask)="changeCurrentTask($event)" [selectedTaskLocal]="currentTask"> </app-project>
 
       <div class="card">
         <div class="card-header">
