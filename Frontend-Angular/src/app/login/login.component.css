@@ -1,3 +1,12 @@
 input{
   background-color: rgba(255, 255, 255, 0.233);
+  color: white;
+  text-shadow: 0px 0px 2px rgb(0, 0, 0);
+}
+
+input:focus{
+  background-color: rgba(255, 255, 255, 0.438);
+  color: white;
+  font-weight: 500;
+  text-shadow: 0px 0px 2px rgb(0, 105, 204);
 }
