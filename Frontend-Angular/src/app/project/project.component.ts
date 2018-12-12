@@ -41,7 +41,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 
       })),
       transition('* => void', [
-        animate('1.5s cubic-bezier(0,.1,.31,.99)')
+        animate('.5s cubic-bezier(0,.1,.31,.99)')
       ])
     ])
   ]
