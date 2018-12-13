@@ -1,5 +1,11 @@
-#projects_bg div{
+#projects_bg{
   background: rgba(240, 240, 240, 0.7);
   background-size: cover;
+  box-shadow: 0px 0px 30px 5px #00000085;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+#project_bg div div{
 
 }
